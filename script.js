@@ -105,15 +105,21 @@ window.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
   const darkMode = localStorage.getItem("darkMode") === "true";
 
-  if (savedTheme) {
-    document.body.classList.add("theme-" + savedTheme);
+  // Apply saved theme or default to NHS Blue
+  const themeToApply = savedTheme || "blue";
+  document.body.classList.add("theme-" + themeToApply);
 
-    // Sync both selectors
-    document.querySelectorAll(".theme-selector").forEach((el) => {
-      el.value = savedTheme;
-    });
+  // Sync both selectors
+  document.querySelectorAll(".theme-selector").forEach((el) => {
+    el.value = themeToApply;
+  });
+
+  // Store default theme if none was saved
+  if (!savedTheme) {
+    localStorage.setItem("theme", "blue");
   }
 
+  // Apply dark mode if enabled
   if (darkMode) {
     document.body.classList.add("dark-mode");
   }
